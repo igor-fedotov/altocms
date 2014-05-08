@@ -1,4 +1,4 @@
-jQuery(document).ready(function ($) {
+;jQuery(document).ready(function ($) {
     // Хук начала инициализации javascript-составляющих шаблона
     ls.hook.run('ls_template_init_start', [], window);
 
@@ -36,7 +36,7 @@ jQuery(document).ready(function ($) {
     });
 
     $('.js-modal-blog_delete').click(function () {
-        $('#modal-blog_delete').modal();
+        ls.modal.show('#modal-blog_delete');
         return false;
     });
 
@@ -87,6 +87,20 @@ jQuery(document).ready(function ($) {
     // Autofocus
     $('form').each(function(){
         $(this).find('.js-focus-in:visible').first().focus();
+    });
+
+    // Stylization of [type=button]
+    $('.btn-file').each(function (){
+        $('input[type=file]', this).change(function (){
+            var input = $(this),
+                value = input.val(), // get value
+                pos = value.lastIndexOf('/') > value.lastIndexOf('\\') ? value.lastIndexOf('/') : value.lastIndexOf('\\'),
+                fileName = value.substring(pos + 1); // get file name
+            // remove existing file info
+            input.next().remove();
+            // append file info
+            $('<span>: ' + fileName + '</span>').insertAfter(input);
+        });
     });
 
     // Скролл
@@ -164,13 +178,11 @@ jQuery(document).ready(function ($) {
     // подсветка кода
     prettyPrint();
 
-    $(function(){
-        var inputs = $('input.input-text, textarea');
-        // эмуляция border-sizing в IE 7-
-        // ls.ie.bordersizing(inputs);
-        // эмуляция placeholder'ов в IE
-        inputs.placeholder();
-    });
+    var inputs = $('input.input-text, textarea');
+    // эмуляция border-sizing в IE 7-
+    // ls.ie.bordersizing(inputs);
+    // эмуляция placeholder'ов в IE
+    inputs.placeholder();
 
     // комментарии
     //ls.comments.options.folding = false;
@@ -281,6 +293,12 @@ jQuery(document).ready(function ($) {
         document.getElementsByTagName("head")[0].appendChild(msViewportStyle)
     }
 
+    if (tinyMCE && ls.settings && ls.settings.presets.tinymce) {
+        var cssUrl = ls.getAssetUrl('template-tinymce.css');
+        if (cssUrl) {
+            ls.settings.presets.tinymce.default['content_css'] = cssUrl;
+        }
+    }
 
     // Хук конца инициализации javascript-составляющих шаблона
     ls.hook.run('ls_template_init_end', [], window);

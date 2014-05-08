@@ -85,6 +85,32 @@ body.light .site-info { margin-bottom: 40px; }
 .light-form { margin: 0 auto; max-width: 480px; padding: 20px; }
 .light-form .page-header h2, .light-form .page-header h3 { margin-top: 0; }
 
+/* Form */
+/** Styling input[type=file] **/
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    margin-right: 4px;
+}
+
+.btn-file input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translate(-300px, 0) scale(4);
+    font-size: 23px;
+    direction: ltr;
+    cursor: pointer;
+}
+
+/* Fix for IE 7: */
+* + html .btn-file {
+    padding: 2px 15px;
+    margin: 1px 0 0 0;
+}
 
 /* Misc */
 .help { display: none; position: relative; padding: 0 0 20px; margin: 13px 0 0; }
@@ -184,6 +210,11 @@ body.light .site-info { margin-bottom: 40px; }
 .item-list li p { margin-bottom: 4px; }
 .item-list li .author { font-weight: bold; }
 
+/* Alert messages */
+.alert-message { box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.02);}
+.alert-message-sign { font-size: 24px; float: left; display: block; position: relative; top: -2px; }
+.alert-message-list { margin-left: 32px; }
+
 /* Others */
 .loader, .loading { background: url(../images/loader.gif) 50% 50% no-repeat; }
 .widget-content .loader { min-height: 20px; }
@@ -278,9 +309,9 @@ select, input[type="file"] { height: auto; }
 
 
 .form-profile .icon-remove,
-.topic-poll-create .icon-remove { margin-left: 3px; position: relative; }
+.topic-poll-create .btn-remove { margin-left: 3px; position: relative; }
 .form-profile .icon-remove:hover,
-.topic-poll-create .icon-remove:hover { text-decoration: none; }
+.topic-poll-create .btn-remove:hover { text-decoration: none; }
 
 .spin {
     -webkit-animation: spin 2s infinite linear;
@@ -426,8 +457,8 @@ select, input[type="file"] { height: auto; }
 
 .topic-poll-add { padding: 15px 20px; margin-bottom: 20px; }
 .topic-poll-add-item { position: relative; margin-bottom: 15px; }
-.topic-poll-add-list { padding-right: 30px; }
-.topic-poll-add-list .icon-remove { position: absolute; right: -30px; top: 9px; z-index: 10; }
+/* .topic-poll-add-list { margin-right: 30px; } */
+.topic-poll-add-list .b-remove { position: absolute; right: 0; padding: 9px 6px; z-index: 10; }
 
 
 /* Topic Photo */
