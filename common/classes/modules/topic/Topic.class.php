@@ -885,8 +885,24 @@ class ModuleTopic extends Module {
      */
     public function GetTopicByUrl($sUrl) {
 
+        $nTopicId = $this->GetTopicIdByUrl($sUrl);
+        if ($nTopicId) {
+            return $this->GetTopicById($nTopicId);
+        }
+        return null;
+    }
+
+    /**
+     * Returns topic ID of it exists
+     *
+     * @param string $sUrl
+     *
+     * @return int
+     */
+    public function GetTopicIdByUrl($sUrl) {
+
         $nTopicId = $this->oMapper->GetTopicIdByUrl($sUrl);
-        return $this->GetTopicById($nTopicId);
+        return $nTopicId;
     }
 
     /**
@@ -1354,10 +1370,10 @@ class ModuleTopic extends Module {
 
     public function _compareByDate($oTopics1, $oTopic2) {
 
-        if ($oTopics1->getDateShow() == $oTopic2->getDateShow()) {
+        if ($oTopics1->getDate() == $oTopic2->getDate()) {
             return ($oTopics1->getId() > $oTopic2->getId()) ? -1 : 1;
         }
-        return ($oTopics1->getDateShow() > $oTopic2->getDateShow()) ? -1 : 1;
+        return ($oTopics1->getDate() > $oTopic2->getDate()) ? -1 : 1;
     }
 
     /**
